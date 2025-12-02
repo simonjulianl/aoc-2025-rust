@@ -7,27 +7,11 @@ fn find_invalid_ids(input: &str) -> Vec<u64> {
     // Helper lambda
     let is_invalid_id = |s: &str| -> bool {
         let len = s.len();
-        if len < 2 {
-            return false;
-        }
-
-        for k in 1..=len / 2 {
-            if len % k != 0 {
-                continue;
-            }
-
-            let base_seq = &s[..k];
-
-            let repeat_count = len / k;
-
-            let mut repeated_seq = String::new();
-            for _ in 0..repeat_count {
-                repeated_seq += base_seq;
-            }
-
-            if repeated_seq == s {
-                return true;
-            }
+        if len > 0 && len % 2 == 0 {
+            let mid = len / 2;
+            let first_half = &s[..mid];
+            let second_half = &s[mid..];
+            return first_half == second_half;
         }
 
         false
